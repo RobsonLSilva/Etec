@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+    <!-- <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"> -->
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
@@ -14,14 +14,18 @@
 </head>
 
 <body>
-    <div class="app">
+    <div class="page page-active">
         <label for="username">Login: </label>
-        <input id="username" type="text"><br><br>
+        <input id="username" type="text" placeholder="Digite seu login"><br><br>
 
         <label for="senha">senha: </label>
-        <input id="senha" type="password"><br><br>
+        <input id="senha" type="password" placeholder="Digite sua senha"><br><br>
 
-        <button type="button" onclick="login();">Logar</button>
+        <button onclick="login();">Logar</button>
+    </div>
+
+    <div class="page" id="pagePrincipal">
+        <h1>Login efetuado com sucesso!</h1>
     </div>
     <script src="cordova.js"></script>
     <script src="js/index.js"></script>
