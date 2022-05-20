@@ -2,9 +2,7 @@ DROP DATABASE biblioteca;
 
 CREATE DATABASE biblioteca; 
 
-
-\c biblioteca; 
-
+\c biblioteca;
 
 CREATE TABLE tb_livro (
     id_livro                SERIAL PRIMARY KEY,
@@ -37,6 +35,45 @@ CREATE TABLE tb_emprestimo(
     CONSTRAINT livro_fk FOREIGN KEY (id_livro) REFERENCES tb_livro (id_livro),
     CONSTRAINT usuario_fk FOREIGN KEY (id_usuario) REFERENCES tb_usuario (id_usuario)
 );
+
+CREATE TABLE hist_emprestimo (
+	id_log 					SERIAL PRIMARY KEY,
+	id_emp 					INTEGER NOT NULL,
+	id_livro 				INTEGER NOT NULL,
+	id_usuario 				INTEGER NOT NULL,
+	datalog 				DATE NOT NULL
+);
+CREATE OR REPLACE FUNCTION  log_emprestimo_hist()
+returns trigger AS $$
+begin 
+	insert into hist_emprestimo
+	(id_emp, id_livro, id_usuario, datalog)
+	values
+	(old.id_emp, old.id_livro, old.id_usuario, current_date);
+	return new;
+end;
+$$ language plpgsql;
+
+CREATE OR REPLACE FUNCTION  del_emprestimo_finalizado()
+returns trigger AS $$
+begin 
+	
+	DELETE FROM tb_emprestimo
+	WHERE id_livro = old.id_livro;
+	return new;
+end;
+$$ language plpgsql;
+
+CREATE OR REPLACE TRIGGER hist_emprestimo
+after update on tb_emprestimo
+for each row 
+execute procedure log_emprestimo_hist();
+
+create or replace trigger del_emprestimo
+after update on tb_emprestimo
+for each row 
+execute procedure del_emprestimo_finalizado();
+
 
 INSERT INTO tb_endereco (descricao, cep) 
 VALUES 
@@ -107,3 +144,7 @@ inner join tb_livro tl on te.id_livro = tl.id_livro
 inner join tb_endereco te2 on te2.id_endereco = tu.cod_endereco
 where tl.descricao_livro like '%BANCO DE DADOS%';
 
+update tb_emprestimo set datadevolucao_emp = current_date where id_usuario = 2;
+
+select * from tb_emprestimo where id_usuario = 2;
+select * from hist_emprestimo;
