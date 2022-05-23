@@ -1,38 +1,60 @@
-// Wait for the deviceready event before using any of Cordova's device APIs.
-// See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
 document.addEventListener('deviceready', onDeviceReady, false);
 
-function onDeviceReady() {
-    // Cordova is now initialized. Have fun!
-    // DADOS DE CONEXÃO E CRIAÇÃO DA BASE DE DADOS
-    let configbd = {
-        name: 'db_cadproduto.db',
-        location: 'default',
-        androidDatabaseProvider: 'system'
-      };
+// DADOS DE CONEXÃO E CRIAÇÃO DA BASE DE DADOS
+let configbd = {
+  name: 'db_cadUsuario.db',
+  location: 'default',
+  androidDatabaseProvider: 'system'
+};
 
+
+
+
+let form = document.getElementById("register-form");
+let submit = document.getElementById("btn-submit");
+let selecionar = document.getElementById("listarUser");
+
+function inserir(bd) {
+  bd.transaction(function (tx) {
+    tx.executeSql('CREATE TABLE IF NOT EXISTS tb_usuarios (email, fname, lname, password)');
+    tx.executeSql('INSERT INTO tb_usuarios VALUES (?,?,?,?)', [form.querySelector("#email").value,
+    form.querySelector("#fname").value,
+    form.querySelector("#lname").value,
+    form.querySelector("#password").value]);
+  }, function (error) {
+    console.log('Transaction ERROR: ' + error.message);
+  }, function () {
+    form.reset();
+    console.log('Populated database OK');
+  });
+}
+
+function selec() {
+  var bd = window.sqlitePlugin.openDatabase(configbd);
+  bd.transaction(function (tx) {
+    tx.executeSql("select count(email) as cnt from tb_usuarios;", [], function (tx, res) {
+      console.log("res.rows.length: " + res.rows.length + " -- should be 1");
+      console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
+    });
+  });
+}
+
+selecionar.addEventListener("click", function (e) {
+  e.preventDefault()
+  selec();
+});
+
+
+
+
+function onDeviceReady() {
+  submit.addEventListener('click', function (e) {
+    e.preventDefault();
     // CONEXÃO COM A BASE DE DADOS  
     var banco = window.sqlitePlugin.openDatabase(configbd);
+    inserir(banco);
+  });
 
-    banco.transaction(function(tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS DemoTable (name, score)');
-        tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Alice', 101]);
-        tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202]);
-      }, function(error) {
-        console.log('Transaction ERROR: ' + error.message);
-      }, function() {
-        console.log('Populated database OK');
-      });
-
-    banco.transaction(function(tx) {
-        tx.executeSql('SELECT count(*) AS mycount FROM DemoTable', [], function(tx, rs) {
-          console.log('Record count (expected to be 2): ' + rs.rows.item(0).mycount);
-        }, function(tx, error) {
-          console.log('SELECT error: ' + error.message);
-        });
-      });
-
-
-    console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
-    document.getElementById('deviceready').classList.add('ready');
+  //console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
+  //document.getElementById('deviceready').classList.add('ready');
 }

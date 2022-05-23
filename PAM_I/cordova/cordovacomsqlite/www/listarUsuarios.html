@@ -11,18 +11,31 @@
     <meta name="color-scheme" content="light dark">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
-    <title>Principal</title>
+    <title>Lista de Usuários</title>
 </head>
 
 <body>
     <div id="main-container">
-
-        <div class="d-grid gap-2 mx-auto">
-            <a href="cadastroUsuarios.html" class="btn btn-primary">Cadastro de usuários</a>
-        
-            <a href="listarUsuarios.html" id="listarUser" class="btn btn-primary">Listar usuários cadastrados</a>
-        </div>
+        <table class="table" id="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Sobrenome</th>
+                    <th scope="col">E-mail</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row" id="tid">1</th>
+                    <td id="tfname"></td>
+                    <td id="tlname"></td>
+                    <td id="temail"></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+
     <script src="cordova.js"></script>
     <script src="js/index.js"></script>
 </body>

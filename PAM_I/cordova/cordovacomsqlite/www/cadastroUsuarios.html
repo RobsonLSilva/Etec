@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Cadastro de Produtos</title>
+</head>
+
+<body>
+    <div id="main-container">
+        <h1>Cadatro de usuários</h1>
+        <form id="register-form">
+            <div class="full-box">
+                <label for="email">E-mail</label>
+                <input type="email" name="email" id="email" placeholder="Digite seu e-mail">
+            </div>
+            <div class="full-box">
+                <label for="fname">Nome</label>
+                <input type="text" name="fname" id="fname" placeholder="Digite o seu nome">
+            </div>
+            <div class="full-box">
+                <label for="lname">Sobrenome</label>
+                <input type="text" name="lname" id="lname" placeholder="Digite o seu sobrenome">
+            </div>
+            <div class="full-box">
+                <label for="password">Senha</label>
+                <input type="password" name="password" id="password" placeholder="Digite a sua senha">
+            </div>
+
+            <div class="full-box">
+                <input type="submit" id="btn-submit" value="Registrar">
+            </div>
+            <div class="full-box">
+
+                <a href="index.html" class="btn">Voltar</a>
+            </div>
+        </form>
+    </div>
+    <p class="error-validation template"></p>
+
+    <script src="cordova.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>
