@@ -9,20 +9,40 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
     <meta name="color-scheme" content="light dark">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
-    <title>Principal</title>
+    <title>Cadastro de Produtos</title>
 </head>
 
 <body>
     <div id="main-container">
+        <h1>Cadatro de usuários</h1>
+        <form id="register-form">
+            <div class="full-box">
+                <label for="email">E-mail</label>
+                <input type="email" name="email" id="email" placeholder="Digite seu e-mail">
+            </div>
+            <div class="full-box">
+                <label for="fname">Nome</label>
+                <input type="text" name="fname" id="fname" placeholder="Digite o seu nome">
+            </div>
+            <div class="full-box">
+                <label for="lname">Sobrenome</label>
+                <input type="text" name="lname" id="lname" placeholder="Digite o seu sobrenome">
+            </div>
+            <div class="full-box">
+                <label for="password">Senha</label>
+                <input type="password" name="password" id="password" placeholder="Digite a sua senha">
+            </div>
 
-        <div class="d-grid gap-2 mx-auto">
-            <a href="cadastroUsuarios.html" class="btn btn-primary">Cadastro de usuários</a>
-        
-            <a href="listarUsuarios.html" id="listarUser" class="btn btn-primary">Listar usuários cadastrados</a>
-        </div>
+            <div class="full-box">
+                <input type="submit" id="btn-submit" value="Registrar">
+            </div>
+            <div class="full-box">
+                <input type="submit" id="btn-select" value="Listar">
+            </div>
+        </form>
     </div>
+
     <script src="cordova.js"></script>
     <script src="js/index.js"></script>
 </body>

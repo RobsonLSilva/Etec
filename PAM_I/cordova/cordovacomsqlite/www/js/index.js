@@ -1,21 +1,22 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 
-// DADOS DE CONEXÃO E CRIAÇÃO DA BASE DE DADOS
 let configbd = {
   name: 'db_cadUsuario.db',
   location: 'default',
   androidDatabaseProvider: 'system'
 };
 
+let banco;
 
 
 
 let form = document.getElementById("register-form");
 let submit = document.getElementById("btn-submit");
-let selecionar = document.getElementById("listarUser");
+let selecionar = document.getElementById("btn-select");
 
-function inserir(bd) {
-  bd.transaction(function (tx) {
+submit.addEventListener('click', function (e) {
+  e.preventDefault();
+  banco.transaction(function (tx) {
     tx.executeSql('CREATE TABLE IF NOT EXISTS tb_usuarios (email, fname, lname, password)');
     tx.executeSql('INSERT INTO tb_usuarios VALUES (?,?,?,?)', [form.querySelector("#email").value,
     form.querySelector("#fname").value,
@@ -27,34 +28,31 @@ function inserir(bd) {
     form.reset();
     console.log('Populated database OK');
   });
-}
+});
 
-function selec() {
-  var bd = window.sqlitePlugin.openDatabase(configbd);
-  bd.transaction(function (tx) {
-    tx.executeSql("select count(email) as cnt from tb_usuarios;", [], function (tx, res) {
-      console.log("res.rows.length: " + res.rows.length + " -- should be 1");
-      console.log("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
-    });
+selecionar.addEventListener('click', function (e) {
+  e.preventDefault();
+  banco.executeSql("SELECT * FROM tb_usuarios", [], function (tx, rs) {
+    alert(JSON.stringify(rs));
+    alert(rs.rows.length);
+    let i = 0;
+    for (i = 0; i < rs.length; i++) {
+      alert("item " + i);
+      let recordItem = rs.rows.item(i);
+      alert(JSON.stringify(recordItem));
+    }
+  }, function (error) {
+    alert('Erro no SELECT: ' + error.message);
   });
-}
-
-selecionar.addEventListener("click", function (e) {
-  e.preventDefault()
-  selec();
 });
 
 
-
-
 function onDeviceReady() {
-  submit.addEventListener('click', function (e) {
-    e.preventDefault();
-    // CONEXÃO COM A BASE DE DADOS  
-    var banco = window.sqlitePlugin.openDatabase(configbd);
-    inserir(banco);
-  });
+
+  banco = window.sqlitePlugin.openDatabase(configbd);
+
+
 
   //console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
-  //document.getElementById('deviceready').classList.add('ready');
+  document.getElementById('deviceready').classList.add('ready');
 }
