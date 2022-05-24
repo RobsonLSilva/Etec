@@ -119,3 +119,7 @@ input[type="submit"] {
     margin-right: auto;
 }
 
+table{
+    caption-side:bottom;
+    border-collapse:collapse
+}
