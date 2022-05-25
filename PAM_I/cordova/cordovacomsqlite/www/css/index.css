@@ -1,30 +1,54 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Helvetica, sans-serif;
-    color: #323232;
     border: none;
 }
 
-input, label{
-    display: block;
-    width: 100%;
-}
-
-input:focus, label:focus{
-    outline: none;
-}
-
-a {
-    color: #E60084;
-}
-
 body {
+    -webkit-touch-callout: none;   /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;  /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;  /* prevent copy paste, to allow, change 'none' to 'text' */
+    font-size: 12px;
+    height: 100vh;
+    margin: 0px;
+    width: 100%;
     padding-top: 5vh;
     background-color: #7d0688;
     background-size: cover;
     background-position-y: -150px;
+}
+
+
+
+input, label {
+    display: block;
+    width: 100%;
+}
+
+input:focus, label:focus {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    width: 100%;
+    border-bottom: 2px solid #323232;
+    padding: 10px;
+    font-size: .9rem;
+    background-color: #164de4;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -30px;
+    margin-bottom: 40px;
 }
 
 /*Form*/
@@ -39,7 +63,7 @@ body {
     padding: 25px;
 }
 
-#main-container h1{
+#main-container h1 {
     text-align: center;
     margin-bottom: 25px;
     font-size: 1.6rem;
@@ -65,15 +89,12 @@ form {
     margin-right: 2.5%;
 }
 
-.spacing2 {
-    margin-top: 80px;
-    margin-bottom: 60px;
-}
 
 label {
     font-weight: bold;
     font-size: .8rem;
 }
+
 input {
     border-bottom: 2px solid #323232;
     padding: 10px;
@@ -89,18 +110,9 @@ input[type="submit"] {
     background-color: #164de4;
     color: #fff;
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
     height: 40px;
     cursor: pointer;
-}
-
-#agreement {
-    margin-right: 5px;
-}
-
-#agreement, #agreement-label {
-    display: inline-block;
-    width: auto;
 }
 
 .error-validation {
@@ -115,11 +127,38 @@ input[type="submit"] {
 }
 
 .btn {
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    width: 100%;
+    border-bottom: 2px solid #323232;
+    padding: 10px;
+    font-size: .9rem;
+    background-color: #164de4;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    cursor: pointer;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 20px;
 }
 
 table{
-    caption-side:bottom;
-    border-collapse:collapse
+	width:100%;
+	padding:5px;
+	border: 1px solid #eee;
+	border-radius: 5px;
+	text-align: center;
+}
+thead{
+	background: #164de4;
+	color: #fff;
+}
+tr{
+	border-bottom: 1px solid #eee;
+}
+td{
+	text-align: center;
 }

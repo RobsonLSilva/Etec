@@ -1,58 +1,50 @@
-document.addEventListener('deviceready', onDeviceReady, false);
+$(document).ready(function () {
 
-// let configbd = {
-//   name: 'db_cadUsuario.db',
-//   location: 'default',
-//   androidDatabaseProvider: 'system'
-// };
+  let configbd = {
+    name: 'db_cadUsuario.db',
+    location: 'default',
+    androidDatabaseProvider: 'system'
+  };
 
-// let banco;
+  let banco;
 
+  document.addEventListener('deviceready', onDeviceReady, false);
 
+  //Abrindo a conexão com o banco de dados
+  function onDeviceReady() {
+    banco = window.sqlitePlugin.openDatabase(configbd);
+  }
 
-// let form = document.getElementById("register-form");
-// let submit = document.getElementById("btn-submit");
-// let selecionar = document.getElementById("btn-select");
+  //Criar nova tabela se não existir e inserir novos dados na tabela
+  $("#btn-submit").click(function () {
+    let email = $("#email").val();
+    let fname = $("#fname").val();
+    let lname = $("#lname").val();
+    let senha = $("#password").val();
 
-// submit.addEventListener('click', function (e) {
-//   e.preventDefault();
-//   banco.transaction(function (tx) {
-//     tx.executeSql('CREATE TABLE IF NOT EXISTS tb_usuarios (email, fname, lname, password)');
-//     tx.executeSql('INSERT INTO tb_usuarios VALUES (?,?,?,?)', [form.querySelector("#email").value,
-//     form.querySelector("#fname").value,
-//     form.querySelector("#lname").value,
-//     form.querySelector("#password").value]);
-//   }, function (error) {
-//     console.log('Transaction ERROR: ' + error.message);
-//   }, function () {
-//     form.reset();
-//     console.log('Populated database OK');
-//   });
-// });
+    banco.transaction(function (tx) {
+      tx.executeSql('CREATE TABLE IF NOT EXISTS tb_usuarios (email, fname, lname, password)');
+      tx.executeSql('INSERT INTO tb_usuarios VALUES (?,?,?,?)', [email, fname, lname, senha]);
+    }, function (error) {
+      alert('Transaction ERROR: ' + error.message);
+    }, function () {
+      alert('Usuário cadastrado!');
+      $("#limpa").click();
+    });
+  });
 
-// selecionar.addEventListener('click', function (e) {
-//   e.preventDefault();
-//   banco.executeSql("SELECT * FROM tb_usuarios", [], function (tx, rs) {
-//     alert(JSON.stringify(rs));
-//     alert(rs.rows.length);
-//     let i = 0;
-//     for (i = 0; i < rs.length; i++) {
-//       alert("item " + i);
-//       let recordItem = rs.rows.item(i);
-//       alert(JSON.stringify(recordItem));
-//     }
-//   }, function (error) {
-//     alert('Erro no SELECT: ' + error.message);
-//   });
-// });
-
-
-function onDeviceReady() {
-
-  // banco = window.sqlitePlugin.openDatabase(configbd);
-
-
-
-  //console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
+  //Busca todos os dados inseridos na tabela do banco de dados e popula a table da pagina listar usuarios
+  $("#showTable").click(function () {
+    $("#TableData").html("");
+    banco.transaction(function (tx) {
+      tx.executeSql('SELECT * FROM tb_usuarios', [], function (tx, rs) {
+        var len = rs.rows.length, i;
+        for (i = 0; i < len; i++) {
+          $("#TableData").append("<tr><td>" + rs.rows.item(i).fname + "</td><td>" + rs.rows.item(i).lname + "</td><td>" + rs.rows.item(i).email + "</td></tr>");
+        }
+      }, null);
+    });
+  });
   document.getElementById('deviceready').classList.add('ready');
-}
+});
+

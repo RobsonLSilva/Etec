@@ -3,12 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-    <meta name="color-scheme" content="light dark">
     <link rel="stylesheet" href="css/index.css">
     <title>Cadastro de Produtos</title>
 </head>
@@ -35,19 +30,17 @@
             </div>
 
             <div class="full-box">
-                <input type="submit" id="btn-submit" value="Registrar">
+                <input type="submit" id="btn-submit" value="Salvar">
+                <input style="display:none" type="reset" id="limpa" />
             </div>
             <div class="full-box">
-                <!-- <input type="submit"  value="Listar">  -->
-                <!-- <button onclick="window.location.href = '#listarUsuarios.html'">link</button> -->
-                <a href="listarUsuarios.html">Listar usuários</a>
+                <a href="listarUsuarios.html" id="btn-consulta">Listar usuários</a>
             </div>
         </form>
     </div>
-
-    <script src="js/DAO.js"></script>
-    <script src="cordova.js"></script>
-    <script src="js/index.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
 </body>
 
 </html>
